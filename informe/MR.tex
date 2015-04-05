@@ -1,0 +1,36 @@
+\begin{section}{Modelo Entidad Relaci\'on}
+
+\begin{subsection}{Modelo Relacional}
+
+\textbf{Centro} $\lbrace$ \underline{idCentro}, direcci\'on $\rbrace$\\
+PK = CK = $ \lbrace $ IdCentro $ \rbrace $ \\
+
+\textbf{Camioneta} $ \lbrace $ \underline{Patente}, DNI $ \rbrace $\\
+PK = CK = $ \lbrace $ Patente $ \rbrace $\\
+FK = $ \lbrace $ DNI $ \rbrace $\\
+
+\textbf{Mesa} $ \lbrace $ \underline{idMesa}, idCentro $ \rbrace $\\
+PK = CK = $ \lbrace $ idMesa $ \rbrace $\\
+FK = $ \lbrace $ idCentro $ \rbrace $\\
+
+\textbf{Padron} $ \lbrace $ \underline{idEleccion, idCiudadano(DNI?)}, idMesa $ \rbrace $\\
+PK = CK = $ \lbrace $ $ \langle $ idEleccion, idCiudadano(DNI?) $ \rangle $ $ \rbrace $\\
+FK = $ \lbrace $ idEleccion, idCiudadano(DNI?), idMesa $ \rbrace $\\
+
+\textbf{Voto} $ \lbrace $ \underline{idMesa, DNI, fecha}, hora $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ idMesa, DNI, fecha $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ idMesa, DNI $ \rbrace $\\
+
+\textbf{Participa} $ \lbrace $ \underline{idMesa, DNI, Fecha}, tipo $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ idMesa, DNI, fecha $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ idMesa, DNI $ \rbrace $\\
+
+\textbf{Cuidadano} $ \lbrace $ \underline{DNI}, nombre, fechaDeNac $ \rbrace $ \\
+PK = CK = $ \lbrace $ DNI $ \rbrace $ \\
+
+\textbf{Eleccion} $ \lbrace $ \underline{idEleccion}, fecha, territorio $ \rbrace $ \\
+PK = CK = $ \lbrace $ idEleccion $ \rbrace $ \\
+
+\end{subsection}
+
+\end{section}

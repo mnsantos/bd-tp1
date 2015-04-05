@@ -1,0 +1,68 @@
+\documentclass[11pt, a4paper,spanish]{article}
+\usepackage[spanish,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{caratula}
+%\usepackage[ruled,vlined,boxed,commentsnumbered,linesnumbered]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage{ulem}
+
+\usepackage[ruled,vlined,boxed,commentsnumbered]{algorithm2e}
+
+% Encabezado y Pie de pagina
+\pagestyle{fancy}
+\fancyhf{}
+%\lfoot{\rightmark}
+\lfoot{Base de Datos}
+\rhead{Trabajo Pr\'actico 1 - ``Sistema de voto electrónico"}
+\rfoot{\thepage\ de \pageref{LastPage}}
+
+
+\begin{document}
+% ------------ CARATULA ------------
+    \input{caratula}
+
+% ------------ INDICE ------------
+
+    \thispagestyle{empty}
+    \tableofcontents
+    \pagebreak
+
+% ------------ INTRODUCCION ------------
+
+	\input{./introduccion.tex}
+	\pagebreak
+
+% ------------ DESARROLLO ------------
+
+	\input{./MER.tex}
+	\pagebreak
+
+% ------------ RESULTADOS ------------
+
+	\input{./MR.tex}
+	\pagebreak
+
+% ------------ DISCUSION ------------
+
+	\input{./consultas.tex}
+	\pagebreak
+
+% ------------ CONCLUSIONES ------------
+
+	\input{./conclusiones.tex}
+	\pagebreak
+
+% ------------ REFERENCIAS ------------
+
+	\input{referencias}
+
+	\pagebreak
+
+\end{document}
