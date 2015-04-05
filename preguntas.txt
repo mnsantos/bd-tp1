@@ -1,0 +1,27 @@
+Preguntas al día de la fecha, domingo 05/04/2015
+
+a) ¿Basta que la relación entre 'Mesa' y 'Candidato' tenga un atributo $enum?
+De ser así... ¿cómo se resuelve el problema de los fiscales y sus partidos políticos?
+
+b) Herencia 'Candidato' - 'Ciudadano', ver que onda eso.
+
+c) Pleviscito ¿con atributo rta o cant de "si"s?
+
+d) ¿Puede un 'Centro' tener muchas camionetas?
+
+e) ¿La distribución de camionetas puede cambiar por cada elección?
+
+f) 'Camioneta' - 'Ciudadano' ¿Relación 1a1? ¿Puede cambiar por elección?
+
+g) Estamos reemplazando una ternaria en 'Elección' por $fecha en 'Voto' y 'Participa'...
+¿OK?
+
+h) ¿El presidente y vice deben pertenecer al padrón asociado a la mesa de la cuál participan?
+
+i) 'Elección', ¿Debe contener un atributo $territorio asociado o se incluye dentro del cargo?
+
+j) En la relación 'Voto', ¿es mejor usar como PK idVoto en lugar de idMesa,dni,fecha?
+
+k) ¿Hace falta registrar la edad de los votantes? (fecha de nacimiento/cumpleaños)
+
+
