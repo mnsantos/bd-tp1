@@ -2,34 +2,65 @@
 
 \begin{subsection}{Modelo Relacional}
 
-\textbf{Centro} $\lbrace$ \underline{idCentro}, direcci\'on $\rbrace$ \\
-PK = CK = $ \lbrace $ IdCentro $ \rbrace $ \\
+\textbf{Partido Pol/'itico} $\lbrace$ \underline{idPartido}, Nombre $\rbrace$ \\
+PK = CK = $ \lbrace $ idPartido $ \rbrace $ \\
 
-\textbf{Camioneta} $ \lbrace $ \underline{Patente}, \dashuline{DNI} $ \rbrace $\\
-PK = CK = $ \lbrace $ Patente $ \rbrace $\\
+\textbf{Afilia} $ \lbrace $ \underline{idPartido, DNI, per\'iodo} $ \rbrace $\\
+PK = CK = $ \lbrace $ idPartido, DNI, per\'iodo $ \rbrace $\\
+FK = $ \lbrace $ idPartido, DNI $ \rbrace $\\
+
+\textbf{Ciudadano} $ \lbrace $ \underline{DNI}, Nombre, IdTerritorio $ \rbrace $\\
+PK = CK = $ \lbrace $ DNI $ \rbrace $\\
+FK = $ \lbrace $ idTerritorio $ \rbrace $\\
+
+\textbf{Camioneta} $ \lbrace $ \underline{Patente}, DNI $ \rbrace $\\
+PK = CK = $ \lbrace $ Patente  $ \rbrace $\\
 FK = $ \lbrace $ DNI $ \rbrace $\\
 
-\textbf{Mesa} $ \lbrace $ \underline{idMesa}, \dashuline{idCentro} $ \rbrace $\\
-PK = CK = $ \lbrace $ idMesa $ \rbrace $\\
+\textbf{Centro} $ \lbrace $ \underline{idCentro}, direcci\'on, patente $ \rbrace $ \\
+PK = CK = $ \lbrace $ idCentro $ \rbrace $ \\
+FK = $ \lbrace $ Patente $ \rbrace $\\
+
+\textbf{Mesa} $ \lbrace $ \underline{IdMesa}, idCentro $ \rbrace $ \\
+PK = CK = $ \lbrace $ IdMesa $ \rbrace $ \\
 FK = $ \lbrace $ idCentro $ \rbrace $\\
 
-\textbf{Padron} $ \lbrace $ \underline{\dashuline{idEleccion}, \dashuline{DNI}}, \dashuline{idMesa} $ \rbrace $\\
-PK = CK = $ \lbrace $ idEleccion, DNI  $ \rbrace $\\
-FK = $ \lbrace $ idEleccion, DNI, idMesa $ \rbrace $\\
+\textbf{Contiene} $ \lbrace $ \underline{IdElecci\'on, idMesa}, DNI$\_$EsPresidente, DNI$\_$EsVice, DNI$\_$EsTecnico $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on, idMesa $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ IdElecci\'on, idMesa, DNI$\_$EsPresidente, DNI$\_$EsVice, DNI$\_$EsTecnico $ \rbrace $\\
 
-\textbf{Voto} $ \lbrace $ \underline{\dashuline{idMesa}, \dashuline{DNI}, fecha}, hora $ \rbrace $ \\
-PK = CK = $ \lbrace $ $ \langle $ idMesa, DNI, fecha $ \rangle $ $ \rbrace $ \\
-FK = $ \lbrace $ idMesa, DNI $ \rbrace $\\
-
-\textbf{Participa} $ \lbrace $ \underline{\dashuline{idMesa}, \dashuline{DNI}, fecha}, tipo $ \rbrace $ \\
-PK = CK = $ \lbrace $ $ \langle $ idMesa, DNI, fecha $ \rangle $ $ \rbrace $ \\
-FK = $ \lbrace $ idMesa, DNI $ \rbrace $\\
-
-\textbf{Cuidadano} $ \lbrace $ \underline{DNI}, nombre, fechaDeNac $ \rbrace $ \\
-PK = CK = $ \lbrace $ DNI $ \rbrace $ \\
-
-\textbf{Eleccion} $ \lbrace $ \underline{idEleccion}, fecha, territorio $ \rbrace $ \\
+\textbf{Votaci\'onEleccion} $ \lbrace $ \underline{idEleccion}, fecha $ \rbrace $ \\
 PK = CK = $ \lbrace $ idEleccion $ \rbrace $ \\
+
+\textbf{esFiscal} $ \lbrace $ \underline{DNI, IdElecci\'on, idMesa} $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ DNI, IdElecci\'on, idMesa $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ DNI, IdElecci\'on, idMesa $ \rbrace $\\
+
+\textbf{Vota} $ \lbrace $ \underline{IdElecci\'on, idMesa}, Hora $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on, idMesa $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ IdElecci\'on, idMesa $ \rbrace $\\
+
+\textbf{VotacionCandidato} $ \lbrace $ \underline{IdElecci\'on}, idCargo, idTerritorio, Per\'iodo $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ IdElecci\'on, idCargo, idTerritorio $ \rbrace $\\
+
+\textbf{EsCandidato} $ \lbrace $ \underline{DNI, IdElecci\'on}, cantVotos $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ DNI, IdElecci\'on $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ DNI, IdElecci\'on $ \rbrace $\\
+
+\textbf{Cargo} $ \lbrace $ \underline{idCargo}, Nombre $ \rbrace $ \\
+PK = CK = $ \lbrace $ idCargo $ \rbrace $ \\
+FK = $ \lbrace $ Nombre $ \rbrace $\\
+
+\textbf{CargoParaTerritorio} $ \lbrace $ \underline{idCargo, idTerritorio} $ \rbrace $ \\
+PK = CK = $ \lbrace $ idCargo, idTerritorio $ \rbrace $ \\
+FK = $ \lbrace $ idCargo, idTerritorio $ \rbrace $\\
+
+\textbf{Territorio} $ \lbrace $ \underline{idTerritorio}, Nombre, idSupreTerritorio $ \rbrace $ \\
+PK = CK = $ \lbrace $ idTerritorio $ \rbrace $ \\
+FK = $ \lbrace $ idSupraTerritorio $ \rbrace $\\
+
+% $ \langle $  $ \rangle $
 
 \end{subsection}
 
