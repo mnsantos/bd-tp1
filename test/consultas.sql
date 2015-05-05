@@ -8,31 +8,34 @@ AND vc.idEleccion IN (SELECT idEleccion
 AND vc.idEleccion = escan.idEleccion
 AND escan.cantVotos = (SELECT MAX(escan2.cantVotos)
                        FROM EsCandidato escan2
-                       WHERE escan2.idEleccion = vc.idEleccion)
+                       WHERE escan2.idEleccion = vc.idEleccion);
 
 ----------------------------------
 
 SELECT cen.direccion, vot.dni
-FROM VOTA V, Votante C, Mesa M, Centro cen
-WHERE V.idMesa = M.idMesa
-AND M.idCentro = cen.idCentro
+FROM Vota v, Votante vot, Mesa m, Centro cen
+WHERE v.idMesa = m.idMesa
+AND vot.dni = v.dni
+AND m.idCentro = cen.idCentro
 AND vot.dni IN (SELECT vot1.dni
-                FROM Votante vot1, VOTA V1, Mesa M1, Centro vot1
-                WHERE V1.IDMesa = M1.IDMesa
-                AND M1.idCentro = cen.idCentro
-                ORDER BY HORA DESC
+                FROM Votante vot1, Vota v1, Mesa m1
+                WHERE v1.idMesa = m1.idMesa
+                AND m1.idCentro = cen.idCentro
+                AND vot1.dni = v1.dni
+                ORDER BY hora DESC
                 LIMIT 5)
+ORDER BY direccion,hora DESC;
 
 -----------------------------------
 
-SELECT PP.nombre
-FROM PARTIDO_POLITICO PP AFILIA A, Votante vot, EsCandidato EC, SEVOTAPOR VP, CARGO cantVotos
-WHERE PP.IDPARTIDO = A.IDPARTIDO
+SELECT pp.nombre
+FROM PartidoPolitico pp, Afilia A, Votante vot, EsCandidato ec, CargoParaTerritorio ct, Cargo cantVotos
+WHERE pp.idPartido = A.idPartido
 AND vot.dni = A.dni
-AND vot.dni = EC.dni
-AND EC.IDELECCION (..FALTA! ULTIMAS 5 ELECCIONES)
-AND VP.IDCARGO = C.IDCARGO
-AND C.nombre = 'GOBERNADOR'
-AND EC.VOTOS > (SELECT SUM(VOTOS)/5
+AND vot.dni = ec.dni
+AND ec.idEleccion = 0 --HARDCODE
+AND ct.idCargo = C.idCargo
+AND C.nombre LIKE 'Gobernador'
+AND ec.cantVotos > (SELECT SUM(cantVotos)*0.2
                 FROM EsCandidato
-                WHERE IDELECCION = EC.IDELECCION)
+                WHERE idEleccion = ec.idEleccion);idEleccion
