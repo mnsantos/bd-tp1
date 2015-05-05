@@ -6,10 +6,10 @@
 PK = CK = $ \lbrace $ idPartido $ \rbrace $ \\
 
 \textbf{Afilia} $ \lbrace $ \underline{idPartido, DNI, per\'iodo} $ \rbrace $\\
-PK = CK = $ \lbrace $ idPartido, DNI, per\'iodo $ \rbrace $\\
+PK = CK = $ \lbrace $ $ \langle $ idPartido, DNI, per\'iodo $ \rangle $  $ \rbrace $\\
 FK = $ \lbrace $ idPartido, DNI $ \rbrace $\\
 
-\textbf{Ciudadano} $ \lbrace $ \underline{DNI}, Nombre, IdTerritorio $ \rbrace $\\
+\textbf{Votante} $ \lbrace $ \underline{DNI}, Nombre, IdTerritorio $ \rbrace $\\
 PK = CK = $ \lbrace $ DNI $ \rbrace $\\
 FK = $ \lbrace $ idTerritorio $ \rbrace $\\
 
@@ -41,7 +41,7 @@ PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on, idMesa $ \rangle $ $ \rbrace $ \
 FK = $ \lbrace $ IdElecci\'on, idMesa $ \rbrace $\\
 
 \textbf{VotacionCandidato} $ \lbrace $ \underline{IdElecci\'on}, idCargo, idTerritorio, Per\'iodo $ \rbrace $ \\
-PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on $ \rangle $ $ \rbrace $ \\
+PK = CK = $ \lbrace $ IdElecci\'on $ \rbrace $ \\
 FK = $ \lbrace $ IdElecci\'on, idCargo, idTerritorio $ \rbrace $\\
 
 \textbf{EsCandidato} $ \lbrace $ \underline{DNI, IdElecci\'on}, cantVotos $ \rbrace $ \\
@@ -58,6 +58,10 @@ FK = $ \lbrace $ idCargo, idTerritorio $ \rbrace $\\
 
 \textbf{Territorio} $ \lbrace $ \underline{idTerritorio}, Nombre, idSupreTerritorio $ \rbrace $ \\
 PK = CK = $ \lbrace $ idTerritorio $ \rbrace $ \\
+FK = $ \lbrace $ idSupraTerritorio $ \rbrace $\\
+
+\textbf{ViveEn} $ \lbrace $ \underline{idTerritorio, DNI}, Per\'iodo $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ idTerritorio, DNI $ \rangle $ $ \rbrace $ \\
 FK = $ \lbrace $ idSupraTerritorio $ \rbrace $\\
 
 % $ \langle $  $ \rangle $
