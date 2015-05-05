@@ -1,43 +1,38 @@
-SELECT CIU.NOMBRE
-FROM CIUDADANO CIU, VOTACIONCANDIDATO VC, ESCANDIDATO ESCAN
-WHERE CIU.DNI = ESCAN.DNI AND VC.idEleccion = ESCAN.idEleccion AND 
-	VC.idEleccion IN 
-		(SELECT idEleccion
-		FROM VOTACIONCANDIDATO
-		WHERE año >= ALL( SELECT año
-						  FROM VOTACIONCANDIDATO ))
-
-	AND NOT EXIST (
-		SELECT CIU2.NOMBRE
-		FROM CIUDADANO CIU2, ESCANDIDATO ESCAN2
-		WHERE CIU.DNI != CIU2.DNI --PEDIMOS QUE SEAN PERSONAS DISTINTAS 
-		AND CIU2.DNI = ESCAN2.DNI --JOIN
-		AND VC.idEleccion = ESCAN2.idEleccion --EN LA MISMA ELECCION
-		AND ESCAN2.CANTVOTOS >= ESCAN.CANTVOTOS) -- QUE TENGA MAS VOTOS QUE YO
+SELECT vot.nombre
+FROM Votante vot, VotacionCandidato vc, EsCandidato escan
+WHERE vot.dni = escan.dni
+AND vc.idEleccion IN (SELECT idEleccion
+                      FROM VotacionCandidato
+                      WHERE fechaInicio >= ( SELECT MAX(fechaInicio)
+                                             FROM VotacionCandidato))
+AND vc.idEleccion = escan.idEleccion
+AND escan.cantVotos = (SELECT MAX(escan2.cantVotos)
+                       FROM EsCandidato escan2
+                       WHERE escan2.idEleccion = vc.idEleccion)
 
 ----------------------------------
 
-SELECT CEN.DIRECCION, CIU.DNI
-FROM VOTA V, CIUDADANO C, MESA M, CENTRO CEN
-WHERE V.IDMESA = M.IDMESA
-AND M.IDCENTRO = CEN.IDCENTRO
-AND CIU.DNI IN (SELECT CIU1.DNI
-				FROM CIUDADANO CIU1, VOTA V1, MESA M1, CENTRO CIU1
-				WHERE V1.IDMESA = M1.IDMESA
-				AND M1.IDCENTRO = CEN.IDCENTRO
-				ORDER BY HORA DESC
-				LIMIT 5)
+SELECT cen.direccion, vot.dni
+FROM VOTA V, Votante C, Mesa M, Centro cen
+WHERE V.idMesa = M.idMesa
+AND M.idCentro = cen.idCentro
+AND vot.dni IN (SELECT vot1.dni
+                FROM Votante vot1, VOTA V1, Mesa M1, Centro vot1
+                WHERE V1.IDMesa = M1.IDMesa
+                AND M1.idCentro = cen.idCentro
+                ORDER BY HORA DESC
+                LIMIT 5)
 
 -----------------------------------
 
-SELECT PP.NOMBRE
-FROM PARTIDO_POLITICO PP AFILIA A, CIUDADANO CIU, ESCANDIDATO EC, SEVOTAPOR VP, CARGO CANTVOTOS
+SELECT PP.nombre
+FROM PARTIDO_POLITICO PP AFILIA A, Votante vot, EsCandidato EC, SEVOTAPOR VP, CARGO cantVotos
 WHERE PP.IDPARTIDO = A.IDPARTIDO
-AND CIU.DNI = A.DNI
-AND CIU.DNI = EC.DNI
+AND vot.dni = A.dni
+AND vot.dni = EC.dni
 AND EC.IDELECCION (..FALTA! ULTIMAS 5 ELECCIONES)
 AND VP.IDCARGO = C.IDCARGO
-AND C.NOMBRE = 'GOBERNADOR'
+AND C.nombre = 'GOBERNADOR'
 AND EC.VOTOS > (SELECT SUM(VOTOS)/5
-				FROM ESCANDIDATO
-				WHERE IDELECCION = EC.IDELECCION)
+                FROM EsCandidato
+                WHERE IDELECCION = EC.IDELECCION)
