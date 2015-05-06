@@ -29,13 +29,14 @@ ORDER BY direccion,hora DESC;
 -----------------------------------
 
 SELECT pp.nombre
-FROM PartidoPolitico pp, Afilia A, Votante vot, EsCandidato ec, CargoParaTerritorio ct, Cargo cantVotos
-WHERE pp.idPartido = A.idPartido
-AND vot.dni = A.dni
+FROM PartidoPolitico pp, Afilia a, Votante vot, EsCandidato ec, Cargo c, VotacionCandidato vc
+WHERE pp.idPartido = a.idPartido
+AND vot.dni = a.dni
 AND vot.dni = ec.dni
-AND ec.idEleccion = 0 --HARDCODE
-AND ct.idCargo = C.idCargo
+AND vc.idEleccion = 0 --HARDCODE
+AND vc.idCargo = C.idCargo
+AND ec.idEleccion = vc.idEleccion
 AND C.nombre LIKE 'Gobernador'
 AND ec.cantVotos > (SELECT SUM(cantVotos)*0.2
                 FROM EsCandidato
-                WHERE idEleccion = ec.idEleccion);idEleccion
+                WHERE idEleccion = ec.idEleccion);
