@@ -1,4 +1,5 @@
 - periodos como fechaInicio/fechaFin. Que es una fecha fin por ejemplo en afilia si nunca se desafilio del partido? null?
   Si guardamos solo la fecha inicio, como se modela por ej una desafiliacion donde el votante no se afilia a otro PP
-- Acaso conviene hacer una jerarquia de Votante con Fiscal y candidato para que estos se relacionen con PartidoPolitico y no todos los votantes?
-- Cargo no deberia contener el periodo en lugar de la VotacionCandidato
+- Acaso conviene hacer una jerarquia de Votante con Fiscal y candidato para que estos se relacionen con PartidoPolitico y no PP con todos los votantes?
+  O es mejor una ternaria PP con esCandidato y esFiscal?
+- deberia Cargo contener el periodo en lugar de la VotacionCandidato?
