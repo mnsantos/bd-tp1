@@ -24,6 +24,7 @@ for table in tables:
 				values[i] = '"' + v + '"'
 		
 		line = ','.join(values)				
-		#print 'INSERT INTO %s VALUES (%s)' % (table, line)
+		print 'INSERT INTO %s VALUES (%s)' % (table, line)
 		conn.execute('INSERT INTO %s VALUES (%s)' % (table, line))
+conn.commit()
 conn.close()
