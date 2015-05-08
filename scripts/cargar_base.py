@@ -16,7 +16,7 @@ for table in tables:
 	csv = open('../test/csvs/%s.csv' % (table))
 	for line in csv:
 		
-		values = line.split(",")
+		values = line.split(",")		
 		for i in range(len(values)):
 			v = values[i]			
 			v = v.lstrip()
