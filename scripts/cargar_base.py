@@ -7,7 +7,7 @@ os.system('sqlite3 ../test/test.db < crear_base.sql')
 conn = sqlite3.connect('../test/test.db')
 
 tables = ['Cargo', 'Territorio', 'Votante', 'Candidato', 'VotacionEleccion', 'VotacionCandidato', 'VotacionConsultaPopular', 
-	'Camioneta', 'Centro', 'Mesa', 'PartidoPolitico', 'EsFiscal', 'RigePara', 'Vota', 'ConsultaPopular', 'SePostulaA', 'ViveEn', 
+	'Camioneta', 'Centro', 'Mesa', 'PartidoPolitico', 'EsFiscal', 'RigePara', 'SePostulaA', 'Vota', 'ConsultaPopular', 'ViveEn', 
 	'VotacionPorMesa', 'Voto', 'VotoCandidato', 'VotoConsultaPopular']
 
 
