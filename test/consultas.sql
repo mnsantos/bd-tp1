@@ -34,8 +34,7 @@ ORDER BY direccion,hora DESC;
 
 -----------------------------------
 
---SELECT pp.nombre
-SELECT spa.cantVotos
+SELECT pp.nombre
 FROM PartidoPolitico pp, SePostulaA spa, Candidato can, Cargo c, VotacionCandidato vc
 WHERE pp.idPartido = spa.idPartido
 AND can.dni = spa.dni
