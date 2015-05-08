@@ -73,6 +73,7 @@ CREATE TABLE EsFiscal(
 
 CREATE TABLE VotacionEleccion(
 	idEleccion INTEGER PRIMARY KEY, 
+	tipo INTEGER,
 	fecha INTEGER
 );
 
@@ -117,6 +118,7 @@ CREATE TABLE Voto(
 	idVoto INTEGER PRIMARY KEY,
 	idEleccion INTEGER,
 	idMesa INTEGER,
+	tipo INTEGER,
 	FOREIGN KEY(idEleccion) REFERENCES VotacionPorMesa(idEleccion),
 	FOREIGN KEY(idMesa) REFERENCES VotacionPorMesa(idMesa)
 );
