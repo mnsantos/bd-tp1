@@ -166,6 +166,16 @@ CREATE TABLE SePostulaA(
 	FOREIGN KEY(idEleccion) REFERENCES VotacionCandidato(idEleccion)
 );
 
+CREATE TABLE VotaEn (
+	DNI INTEGER, 
+	idEleccion INTEGER, 
+	idMesa INTEGER, 	
+	PRIMARY KEY(DNI,idEleccion,idMesa), 
+	FOREIGN KEY(DNI) REFERENCES Votante(DNI), 
+	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion), 
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa)
+);
+
 CREATE TRIGGER AsignarVotoRandomCandidato AFTER INSERT ON Vota
 	WHEN New.idEleccion IN (SELECT vc.idEleccion FROM VotacionCandidato vc)
 	BEGIN				
