@@ -65,8 +65,8 @@ CREATE TABLE EsFiscal(
 	idMesa INTEGER, 
 	idPartido INTEGER, 
 	PRIMARY KEY(DNI,idEleccion,idMesa), 
-	FOREIGN KEY(idEleccion) REFERENCES VotacionPorMesa(idEleccion), 
-	FOREIGN KEY(idMesa) REFERENCES VotacionPorMesa(idMesa), 
+	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion), 
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa), 
 	FOREIGN KEY(DNI) REFERENCES Votante(DNI), 
 	FOREIGN KEY(idPartido) REFERENCES PartidoPolitico(idPartido)
 );
@@ -98,13 +98,13 @@ CREATE TABLE Vota(
 	hora INTEGER, 
 	PRIMARY KEY(DNI,idEleccion,idMesa), 
 	FOREIGN KEY(DNI) REFERENCES Votante(DNI), 
-	FOREIGN KEY(idEleccion) REFERENCES VotacionPorMesa(idEleccion), 
-	FOREIGN KEY(idMesa) REFERENCES VotacionPorMesa(idMesa)
+	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion), 
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa)
 );
 
 CREATE TABLE PartidoPolitico(
 	idPartido INTEGER PRIMARY KEY, 
-	nombre VARCHAR2
+	nombreARCHAR2
 );
 
 CREATE TABLE ConsultaPopular(
@@ -119,8 +119,8 @@ CREATE TABLE Voto(
 	idEleccion INTEGER,
 	idMesa INTEGER,
 	tipo INTEGER,
-	FOREIGN KEY(idEleccion) REFERENCES VotacionPorMesa(idEleccion),
-	FOREIGN KEY(idMesa) REFERENCES VotacionPorMesa(idMesa)
+	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion),
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa)
 );
 
 CREATE TABLE VotoCandidato(
