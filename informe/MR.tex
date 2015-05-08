@@ -9,6 +9,10 @@ PK = CK = $ \lbrace $ idPartido $ \rbrace $ \\
 PK = CK = $ \lbrace $ DNI $ \rbrace $\\
 FK = $ \lbrace $ idTerritorio $ \rbrace $\\
 \\
+\textbf{Candidato} $ \lbrace $ \underline{DNI} $ \rbrace $\\
+PK = CK = $ \lbrace $ DNI $ \rbrace $\\
+FK = $ \lbrace $ DNI $ \rbrace $\\
+\\
 \textbf{Camioneta} $ \lbrace $ \underline{Patente}, DNI $ \rbrace $\\
 PK = CK = $ \lbrace $ Patente  $ \rbrace $\\
 FK = $ \lbrace $ DNI $ \rbrace $\\
@@ -21,7 +25,7 @@ FK = $ \lbrace $ Patente, idTerritorio $ \rbrace $\\
 PK = CK = $ \lbrace $ IdMesa $ \rbrace $ \\
 FK = $ \lbrace $ idCentro $ \rbrace $\\
 \\
-\textbf{Contiene} $ \lbrace $ \underline{IdElecci\'on, idMesa}, DNIPresidente, DNIVice, DNITecnico $ \rbrace $ \\
+\textbf{Votacion Por Mesa} $ \lbrace $ \underline{IdElecci\'on, idMesa}, DNIPresidente, DNIVice, DNITecnico $ \rbrace $ \\
 PK = CK = $ \lbrace $ $ \langle $ IdElecci\'on, idMesa $ \rangle $ $ \rbrace $ \\
 FK = $ \lbrace $ IdElecci\'on, idMesa, DNIPresidente, DNIVice, DNITecnico $ \rbrace $\\
 \\
@@ -40,20 +44,21 @@ FK = $ \lbrace $ DNI, IdElecci\'on, idMesa $ \rbrace $\\
 PK = CK = $ \lbrace $ IdElecci\'on $ \rbrace $ \\
 FK = $ \lbrace $ IdElecci\'on, idCargo, idTerritorio $ \rbrace $\\
 \\
-\textbf{VotacionConsultaPopular} $ \lbrace $ \underline{IdElecci\'on}, idConsulta $ \rbrace $ \\
+\textbf{VotacionConsultaPopular} $ \lbrace $ \underline{IdElecci\'on} $ \rbrace $ \\
 PK = CK = $ \lbrace $ IdElecci\'on $ \rbrace $ \\
-FK = $ \lbrace $ idConsulta $ \rbrace $\\
+FK = $ \lbrace $ idEleccion $ \rbrace $\\
 \\
-\textbf{ConsultaPopular} $ \lbrace $ \underline{IdConsulta}, Descripci\'on, CantVotosAFvor$ \rbrace $ \\
-PK = CK = $ \lbrace $ IdElecci\'on $ \rbrace $ \\
+\textbf{ConsultaPopular} $ \lbrace $ \underline{IdConsulta}, Descripci\'on, idEleccion$ \rbrace $ \\
+PK = CK = $ \lbrace $ IdConsulta $ \rbrace $ \\
+FK = $ \lbrace $ idEleccion $ \rbrace $\\
 \\
-\textbf{Voto} $ \lbrace $ \underline{IdVoto,IdElecci\'on, idMesa}, tipo $ \rbrace $ \\
+\textbf{Voto} $ \lbrace $ \underline{IdVoto, IdElecci\'on, idMesa}, tipo $ \rbrace $ \\
 PK = CK = $ \lbrace $ $ \langle $ IdVoto, IdElecci\'on, idMesa $ \rangle $  $ \rbrace $ \\
 FK = $ \lbrace $ $ \langle $ IdElecci\'on, idMesa $ \rangle $ $ \rbrace $\\
 \\
-\textbf{VotoConsultaPopular} $ \lbrace $ \underline{IdVoto}$ \rbrace $ \\
+\textbf{VotoConsultaPopular} $ \lbrace $ \underline{IdVoto}, idConsulta$ \rbrace $ \\
 PK = CK = $ \lbrace $  IdVoto $ \rbrace $ \\
-FK = $ \lbrace $  $ \rbrace $\\
+FK = $ \lbrace $ idConsulta $ \rbrace $\\
 \\
 \textbf{VotoCandidato} $ \lbrace $ \underline{IdVoto}, DNI$ \rbrace $ \\
 PK = CK = $ \lbrace $  IdVoto $ \rbrace $ \\
@@ -63,9 +68,8 @@ FK = $ \lbrace $ DNI $ \rbrace $\\
 PK = CK = $ \lbrace $ $ \langle $ DNI, IdElecci\'on $ \rangle $ $ \rbrace $ \\
 FK = $ \lbrace $ DNI, IdElecci\'on, idPartido $ \rbrace $\\
 \\
-\textbf{Cargo} $ \lbrace $ \underline{idCargo}, Nombre, Período $ \rbrace $ \\
+\textbf{Cargo} $ \lbrace $ \underline{idCargo}, Nombre, fechaInicio, fechaFin$ \rbrace $ \\
 PK = CK = $ \lbrace $ idCargo $ \rbrace $ \\
-FK = $ \lbrace $ Nombre $ \rbrace $\\
 \\
 \textbf{RigePara} $ \lbrace $ \underline{idCargo, idTerritorio} $ \rbrace $ \\
 PK = CK = $ \lbrace $ $ \langle $ idCargo, idTerritorio $ \rangle $ $ \rbrace $ \\
@@ -75,9 +79,9 @@ FK = $ \lbrace $ idCargo, idTerritorio $ \rbrace $\\
 PK = CK = $ \lbrace $ idTerritorio $ \rbrace $ \\
 FK = $ \lbrace $ idSupraTerritorio $ \rbrace $\\
 \\
-\textbf{ViveEn} $ \lbrace $ \underline{idTerritorio, DNI}, Per\'iodo $ \rbrace $ \\
-PK = CK = $ \lbrace $ $ \langle $ idTerritorio, DNI $ \rangle $ $ \rbrace $ \\
-FK = $ \lbrace $ idSupraTerritorio $ \rbrace $\\
+\textbf{ViveEn} $ \lbrace $ \underline{idTerritorio, DNI, fechaInicio}, fechaFin $ \rbrace $ \\
+PK = CK = $ \lbrace $ $ \langle $ idTerritorio, DNI, fechaInicio $ \rangle $ $ \rbrace $ \\
+FK = $ \lbrace $ DNI, idTerritorio $ \rbrace $\\
 
 % $ \langle $  $ \rangle $
 

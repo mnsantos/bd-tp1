@@ -35,7 +35,7 @@
     <node id="n1">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="95.0" width="431.0" x="104.5" y="163.0"/>
+          <y:Geometry height="95.0" width="431.0" x="104.5" y="164.0"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="custom" textColor="#000000" visible="true" width="4.0" x="213.5" y="45.5">
@@ -89,10 +89,12 @@ Electoral<y:LabelModel>
     <node id="n4">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="55.0" width="87.0" x="274.0" y="184.0"/>
+          <y:Geometry height="73.22272215972998" width="97.0" x="274.0" y="174.888638920135"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="57.736328125" x="14.6318359375" y="18.515625">Contiene<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="56.48828125" x="20.255859375" y="13.658236079864992">Votacion
+Por
+Mesa<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
