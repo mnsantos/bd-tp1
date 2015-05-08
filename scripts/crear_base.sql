@@ -104,7 +104,7 @@ CREATE TABLE Vota(
 
 CREATE TABLE PartidoPolitico(
 	idPartido INTEGER PRIMARY KEY, 
-	nombreARCHAR2
+	nombre VARCHAR2
 );
 
 CREATE TABLE ConsultaPopular(
