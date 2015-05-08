@@ -1,0 +1,11 @@
+CAmbios y dudas sobre el DER:
+
+La relacion vive en debe ser de muchos a muchos y poseer el atributo periodo.
+
+la relacion se postula a debe poseer el atributo cant votos y la participacion de la entidad partido politico en esa relacion debe ser de uno.
+
+cambiar ciudadano por votante.
+
+existen 2 relaciones con el nombre contiene.
+
+deberia tener algun atributo la herencia de voto consulta popular? y la entidad votacion consulta popular?
