@@ -115,7 +115,7 @@ CREATE TABLE ConsultaPopular(
 );
 
 CREATE TABLE Voto(
-	idVoto INTEGER PRIMARY KEY,
+	idVoto INTEGER PRIMARY KEY ASC,
 	idEleccion INTEGER,
 	idMesa INTEGER,
 	tipo INTEGER,
@@ -166,8 +166,44 @@ CREATE TABLE SePostulaA(
 	FOREIGN KEY(idEleccion) REFERENCES VotacionCandidato(idEleccion)
 );
 
+CREATE TRIGGER AsignarVotoRandomCandidato AFTER INSERT ON Vota
+	WHEN New.idEleccion IN (SELECT vc.idEleccion FROM VotacionCandidato vc)
+	BEGIN				
+		iNSERT INTO Voto(idVoto, idEleccion, idMesa, tipo) 
+			SELECT MAX(idVoto)+1, New.idEleccion, New.idMesa, 1
+			FROM Voto;
+
+		INSERT INTO VotoCandidato (idVoto, DNI) 			
+			SELECT MAX(idVoto), DNI 
+			FROM Voto, SePostulaA spa
+			WHERE spa.idEleccion = New.idEleccion AND 
+				DNI IN (SELECT DNI FROM SePostulaA ORDER BY RANDOM() LIMIT 1);
+	END;
+
+CREATE TRIGGER AsignarVotoRandomConsultaPopular AFTER INSERT ON Vota
+	WHEN New.idEleccion IN (SELECT vc.idEleccion FROM VotacionConsultaPopular vc)
+	BEGIN				
+		iNSERT INTO Voto(idVoto, idEleccion, idMesa, tipo) 
+			SELECT MAX(idVoto)+1, New.idEleccion, New.idMesa, 2 
+			FROM Voto;
+
+		INSERT INTO VotoConsultaPopular (idVoto, idConsulta) 
+			SELECT MAX(idVoto), idConsulta FROM Voto, ConsultaPopular cp
+			WHERE cp.idEleccion = New.idEleccion AND
+				idConsulta IN (SELECT idConsulta FROM ConsultaPopular ORDER BY RANDOM() LIMIT 1);
+	END;
+
 CREATE TRIGGER SumarVotos AFTER INSERT ON VotoCandidato
 	BEGIN				
 		UPDATE SePostulaA SET 
-			cantVotos = (SELECT COUNT(*) FROM VotoCandidato vc WHERE vc.DNI = SePostulaA.DNI);			
+			cantVotos = (SELECT COUNT(*) FROM VotoCandidato vc WHERE vc.DNI = SePostulaA.DNI)
+			WHERE SePostulaA.DNI = New.DNI;			
+	END;
+
+CREATE TRIGGER FiscalNoPermitido BEFORE INSERT ON EsFiscal	
+	BEGIN
+		SELECT (RAISE(ABORT,"TRIGGER Error 'EsFiscal': Ya existe un fiscal del partido politico en esa mesa."))
+		WHERE EXISTS (SELECT 1 FROM EsFiscal AS ef 
+			WHERE New.idPartido = ef.idPartido
+		);		
 	END;
