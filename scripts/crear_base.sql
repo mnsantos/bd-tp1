@@ -165,3 +165,9 @@ CREATE TABLE SePostulaA(
 	FOREIGN KEY(idPartido) REFERENCES PartidoPolitico(idPartido),
 	FOREIGN KEY(idEleccion) REFERENCES VotacionCandidato(idEleccion)
 );
+
+CREATE TRIGGER SumarVotos AFTER INSERT ON VotoCandidato
+	BEGIN				
+		UPDATE SePostulaA SET 
+			cantVotos = (SELECT COUNT(*) FROM VotoCandidato vc WHERE vc.DNI = SePostulaA.DNI);			
+	END;
