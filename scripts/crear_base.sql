@@ -88,7 +88,7 @@ CREATE TABLE VotacionCandidato(
 
 CREATE TABLE VotacionConsultaPopular(
 	idEleccion INTEGER PRIMARY KEY,
-	FOREIGN KEY(idEleccion) REFERENCES VotacionConsultaPopular(idEleccion)
+	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion)
 );
 
 CREATE TABLE Vota(
@@ -140,6 +140,8 @@ CREATE TABLE VotoConsultaPopular(
 CREATE TABLE ViveEn(
 	DNI INTEGER,
 	idTerritorio INTEGER,
+	fechaInicio INTEGER,
+	fechaFin INTEGER,
 	PRIMARY KEY(DNI, idTerritorio, fechaInicio),
 	FOREIGN KEY(DNI) REFERENCES Votante(DNI),
 	FOREIGN KEY(idTerritorio) REFERENCES Territorio(idTerritorio)
