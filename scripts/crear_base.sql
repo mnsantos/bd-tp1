@@ -199,3 +199,11 @@ CREATE TRIGGER SumarVotos AFTER INSERT ON VotoCandidato
 			cantVotos = (SELECT COUNT(*) FROM VotoCandidato vc WHERE vc.DNI = SePostulaA.DNI)
 			WHERE SePostulaA.DNI = New.DNI;			
 	END;
+
+CREATE TRIGGER FiscalNoPermitido BEFORE INSERT ON EsFiscal	
+	BEGIN
+		SELECT (RAISE(ABORT,"TRIGGER Error 'EsFiscal': Ya existe un fiscal del partido politico en esa mesa."))
+		WHERE EXISTS (SELECT 1 FROM EsFiscal AS ef 
+			WHERE New.idPartido = ef.idPartido
+		);		
+	END;
