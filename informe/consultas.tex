@@ -212,6 +212,17 @@ CREATE TRIGGER AsignarVotoRandomCandidato AFTER INSERT ON Vota
         DNI IN (SELECT DNI FROM SePostulaA ORDER BY RANDOM() LIMIT 1);
   END;
 
+
+\end{lstlisting} 
+
+~
+
+\noindent Este trigger automatiza la inserci\'on de votos en las tablas Voto y VotoCandidato siempre que un ciudadano vote.
+
+~
+
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
+
 CREATE TRIGGER AsignarVotoRandomConsultaPopular AFTER INSERT ON Vota
   WHEN New.idEleccion IN (SELECT vc.idEleccion FROM VotacionConsultaPopular vc)
   BEGIN       
@@ -226,6 +237,16 @@ CREATE TRIGGER AsignarVotoRandomConsultaPopular AFTER INSERT ON Vota
                        FROM ConsultaPopular ORDER BY RANDOM() LIMIT 1);
   END;
 
+\end{lstlisting} 
+
+~
+
+\noindent An\'alogo al trigger anterior pero para elecciones del tipo consulta popular.
+
+~
+
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
+
 CREATE TRIGGER SumarVotos AFTER INSERT ON VotoCandidato
   BEGIN       
     UPDATE SePostulaA SET 
@@ -235,23 +256,52 @@ CREATE TRIGGER SumarVotos AFTER INSERT ON VotoCandidato
       WHERE SePostulaA.DNI = New.DNI;     
   END;
 
+
+\end{lstlisting} 
+
+~
+
+\noindent SumarVotos actualiza la tabla de SePostulaA a partir de la inserci\'on de nuevos votos en la tabla VotoCandidato.
+
+~
+
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
+
 CREATE TRIGGER FiscalNoPermitido BEFORE INSERT ON EsFiscal  
   BEGIN
-    SELECT (RAISE(ABORT,"TRIGGER Error 'EsFiscal': 
-      Ya existe un fiscal del partido politico en esa mesa."))
+    SELECT (RAISE(ABORT,TRIGGER Error EsFiscal: 
+      Ya existe un fiscal del partido politico en esa mesa.))
     WHERE EXISTS (SELECT 1 FROM EsFiscal AS ef 
       WHERE New.idPartido = ef.idPartido
     );    
   END;
 
+
+\end{lstlisting} 
+
+~
+
+\noindent Aqu\'i se levanta un error siempre que se agregue m\'as de un fiscal del mismo partido pol\'itico a la misma mesa, en una misma elecci\'on.
+
+~
+
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
+
 CREATE TRIGGER VotoInvalido BEFORE INSERT ON Vota 
   BEGIN
-    SELECT (RAISE (ABORT, "TRIGGER Error 'Vota': El votante no esta en el padron."))
+    SELECT (RAISE (ABORT, TRIGGER Error Vota: El votante no esta en el padron.))
     WHERE NOT EXISTS (SELECT 1 FROM VotaEn WHERE VotaEn.idEleccion = New.idEleccion
     AND VotaEn.idMesa = New.idMesa AND VotaEn.DNI = New.DNI);
   END;
 
+
 \end{lstlisting} 
+
+~
+
+\noindent Este trigger no permite que un votante que no est\'e empadronado vote.
+
+~
 
 \end{subsection}
 \end{section}
