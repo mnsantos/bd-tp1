@@ -8,7 +8,7 @@ conn = sqlite3.connect('../test/test.db')
 
 tables = ['Cargo', 'Territorio', 'Votante', 'Candidato', 'VotacionEleccion', 'VotacionCandidato', 'VotacionConsultaPopular', 
 	'Camioneta', 'Centro', 'Mesa', 'PartidoPolitico', 'RigePara', 'SePostulaA', 'ConsultaPopular', 'ViveEn', 
-	'VotacionPorMesa', 'Vota', 'EsFiscal', 'Voto', 'VotoCandidato', 'VotoConsultaPopular', 'VotaEn']
+	'VotacionPorMesa', 'VotaEn', 'Vota', 'EsFiscal', 'Voto', 'VotoCandidato', 'VotoConsultaPopular']
 
 
 conn.execute('PRAGMA foreign_keys = ON')

@@ -217,3 +217,9 @@ CREATE TRIGGER FiscalNoPermitido BEFORE INSERT ON EsFiscal
 			WHERE New.idPartido = ef.idPartido
 		);		
 	END;
+
+CREATE TRIGGER VotoInvalido BEFORE INSERT ON Vota 
+	BEGIN
+		SELECT (RAISE (ABORT, "TRIGGER Error 'Vota': El votante no esta en el padron."))
+		WHERE NOT EXISTS (SELECT 1 FROM VotaEn WHERE VotaEn.idEleccion = New.idEleccion AND VotaEn.idMesa = New.idMesa AND VotaEn.DNI = New.DNI);
+	END;
