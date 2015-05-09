@@ -2,46 +2,11 @@
 
 Para la resoluci\'on de este trabajo se decidi\'o utilizar el motor de base de datos $SQLite$ como base para su implementaci\'on dado que es m\'as liviano para correr y su uso es bastante intuitivo. Puede soportar una cantidad abundate de datos (aproximadamente 2 teras) y tambi\'en utiliza llamadas simples a subrutinas y funciones lo que reduce la latencia en el acceso a la base de datos, debido a que las llamadas a funciones son más eficientes que la comunicación entre procesos. 
 
-A continuaci\'on se encuentra el script de generaci\'on de tablas:
+Para la confecci\'on de las tablas realizamos un script de python que hace uso de varios csvs para llenar las tablas. 
 
 \begin{lstlisting}[language=SQL]
 
-import os
-import sqlite3
 
-os.system('rm ../test/test.db')
-os.system('sqlite3 ../test/test.db < crear_base.sql')
-
-conn = sqlite3.connect('../test/test.db')
-
-tables = ['Cargo', 'Territorio', 'Votante', 'Candidato', 
-	'VotacionEleccion', 'VotacionCandidato', 'VotacionConsultaPopular', 
-	'Camioneta', 'Centro', 'Mesa', 'PartidoPolitico', 'RigePara', 
-	'SePostulaA', 'ConsultaPopular', 'ViveEn', 
-	'VotacionPorMesa', 'Vota', 'EsFiscal', 'Voto', 'VotoCandidato', 
-	'VotoConsultaPopular', 'VotaEn']
-
-
-conn.execute('PRAGMA foreign_keys = ON')
-for table in tables:
-	csv = open('../test/csvs/\%s.csv' \% (table))
-	for line in csv:
-		
-		values = line.split(",")		
-		for i in range(len(values)):
-			v = values[i]			
-			v = v.lstrip()
-			v = v.rstrip()						
-			if not (v.upper() == "NULL") and not 
-					v[0].isdigit() and v[0] != '"' and v[0] != "'":
-				values[i] = '"' + v + '"'
-		
-		line = ','.join(values)				
-		print 'INSERT INTO \%s VALUES (\%s)' \% (table, line)
-		conn.execute('INSERT INTO \%s VALUES 
-									(\%s)' \% (table, line))
-conn.commit()
-conn.close()
 
 \end{lstlisting} 
 
@@ -50,9 +15,9 @@ conn.close()
 \begin{section}{Consultas}
 
 
-Consulta 1: Obtener los ganadores de las elecciones transcurridas en el \'ultimo año.
+\noindent Consulta 1: Obtener los ganadores de las elecciones transcurridas en el \'ultimo año.
 
-\begin{lstlisting}[language=SQL]
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
 
 SELECT v.nombre
 FROM Votante v, Candidato can, VotacionCandidato vc, SePostulaA spa
@@ -68,11 +33,13 @@ AND spa.cantVotos = (SELECT MAX(spa2.cantVotos)
                      FROM SePostulaA spa2
                      WHERE spa2.idEleccion = vc.idEleccion);
 
+Esta consulta toma los candidatos que participan de las \'ultimas elecciones a partir de la VotacionCandidato y luego los filtra de acuerdo con la cantidad de votos, para as\'i obtener a los ganadores.
+
 \end{lstlisting} 
 
-Consulta 2: Consultar las 5 personas que m\'as tarde fueron a votar antes de terminar la votaci\'on por cada centro electoral en na elecci\'on.
+\noindent Consulta 2: Consultar las 5 personas que m\'as tarde fueron a votar antes de terminar la votaci\'on por cada centro electoral en na elecci\'on.
 
-\begin{lstlisting}[language=SQL]
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
 
 SELECT cen.direccion, vot.dni
 FROM Vota v, Votante vot, Mesa m, Centro cen
@@ -92,20 +59,27 @@ AND vot.dni IN (SELECT vot1.dni
                 LIMIT 5)
 ORDER BY direccion,hora DESC;
 
-
+Aqu\'i
 \end{lstlisting} 
 
-Consulta 3: Consultar quienes fueron los partidos pol\'iticos que obtuvieron m\'as del 20$\%$ en las \'ultimas 5 elecciones provinciales a gobernador.
+\noindent Consulta 3: Consultar quienes fueron los partidos pol\'iticos que obtuvieron m\'as del 20$\%$ en las \'ultimas 5 elecciones provinciales a gobernador.
 
-\begin{lstlisting}[language=SQL]
+
+
+\begin{lstlisting}[language=SQL, basicstyle=\footnotesize]
 
 SELECT pp.nombre
-FROM PartidoPolitico pp, SePostulaA spa, Candidato can, Cargo c, VotacionCandidato vc
+FROM PartidoPolitico pp, 
+     SePostulaA spa, 
+     Candidato can, 
+     Cargo c, 
+     VotacionCandidato vc
 WHERE pp.idPartido = spa.idPartido
 AND can.dni = spa.dni
 AND spa.idEleccion = vc.idEleccion
 AND vc.idEleccion IN (SELECT ve.idEleccion
-                      FROM VotacionCandidato vc2, VotacionEleccion ve, Cargo c2
+                      FROM VotacionCandidato vc2, 
+                           VotacionEleccion ve, Cargo c2
                       WHERE vc2.idEleccion = ve.idEleccion
                       AND c2.idCargo = vc2.idCargo
                       AND c2.nombre LIKE 'Gobernador'
