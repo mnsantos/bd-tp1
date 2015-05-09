@@ -1,4 +1,53 @@
-\begin{section}{Resultados}
+\begin{section}{Consultas}
+
+Para la resoluci\'on de este trabajo se decidi\'o utilizar el motor de base de datos $SQLite$ como base para su implementaci\'on dado que es m\'as liviano para correr y su uso es bastante intuitivo. Puede soportar una cantidad abundate de datos (aproximadamente 2 teras) y tambi\'en utiliza llamadas simples a subrutinas y funciones lo que reduce la latencia en el acceso a la base de datos, debido a que las llamadas a funciones son más eficientes que la comunicación entre procesos. 
+
+A continuaci\'on se encuentra el script de generaci\'on de tablas:
+
+\begin{lstlisting}[language=SQL]
+
+import os
+import sqlite3
+
+os.system('rm ../test/test.db')
+os.system('sqlite3 ../test/test.db < crear_base.sql')
+
+conn = sqlite3.connect('../test/test.db')
+
+tables = ['Cargo', 'Territorio', 'Votante', 'Candidato', 
+	'VotacionEleccion', 'VotacionCandidato', 'VotacionConsultaPopular', 
+	'Camioneta', 'Centro', 'Mesa', 'PartidoPolitico', 'RigePara', 
+	'SePostulaA', 'ConsultaPopular', 'ViveEn', 
+	'VotacionPorMesa', 'Vota', 'EsFiscal', 'Voto', 'VotoCandidato', 
+	'VotoConsultaPopular', 'VotaEn']
+
+
+conn.execute('PRAGMA foreign_keys = ON')
+for table in tables:
+	csv = open('../test/csvs/\%s.csv' \% (table))
+	for line in csv:
+		
+		values = line.split(",")		
+		for i in range(len(values)):
+			v = values[i]			
+			v = v.lstrip()
+			v = v.rstrip()						
+			if not (v.upper() == "NULL") and not 
+					v[0].isdigit() and v[0] != '"' and v[0] != "'":
+				values[i] = '"' + v + '"'
+		
+		line = ','.join(values)				
+		print 'INSERT INTO \%s VALUES (\%s)' \% (table, line)
+		conn.execute('INSERT INTO \%s VALUES 
+									(\%s)' \% (table, line))
+conn.commit()
+conn.close()
+
+\end{lstlisting} 
+
+\end{section}
+
+\begin{section}{Consultas}
 
 
 Consulta 1: Obtener los ganadores de las elecciones transcurridas en el \'ultimo año.
