@@ -1,3 +1,25 @@
 \begin{section}{Resultados}
 
+\begin{footnotesize} 
+\begin{tt} 
+\begin{tabbing} 
+
+
+\textbf{SELECT} v.nombre \\
+\textbf{FROM} Votante $v$, Candidato $can$, VotacionCandidato $vc$, SePostulaA $spa$ \\
+\textbf{WHERE} $v$.dni = $can$.dni \\
+\textbf{AND} $can$.dni = $spa$.dni \\
+\textbf{AND} $vc$.idEleccion \textbf{IN (SELECT} $vc2$.idEleccion \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{FROM} VotacionEleccion $ve$, VotacionCandidato $vc2$ \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{WHERE} $ve$.idEleccion = $vc2$.idEleccion \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{AND} fecha $\geq$ ( \textbf{SELECT MAX}(fecha) \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{FROM} VotacionEleccion)) \\
+\textbf{AND} $vc$.idEleccion = $spa$.idEleccion \\
+\textbf{AND} $spa$.cantVotos = (\textbf{SELECT MAX}($spa2$.cantVotos) \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{FROM} SePostulaA $spa2$ \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textbf{WHERE} $spa2$.idEleccion = $vc$.idEleccion); \\
+\end{tabbing} 
+\end{tt} 
+\end{footnotesize} 
+
 \end{section}
