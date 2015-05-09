@@ -2,7 +2,8 @@ CREATE TABLE Cargo(
 	idCargo INTEGER PRIMARY KEY, 
 	nombre VARCHAR2, 
 	fechaInicio INTEGER, 
-	fechaFin INTEGER
+	fechaFin INTEGER,
+	CHECK (fechaFin = -1 OR fechaFin > fechaInicio)
 );
 
 CREATE TABLE Territorio(
@@ -74,7 +75,8 @@ CREATE TABLE EsFiscal(
 CREATE TABLE VotacionEleccion(
 	idEleccion INTEGER PRIMARY KEY, 
 	tipo INTEGER,
-	fecha INTEGER
+	fecha INTEGER,
+	CHECK (tipo = 1 OR tipo = 2)
 );
 
 CREATE TABLE VotacionCandidato(
@@ -99,7 +101,8 @@ CREATE TABLE Vota(
 	PRIMARY KEY(DNI,idEleccion,idMesa), 
 	FOREIGN KEY(DNI) REFERENCES Votante(DNI), 
 	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion), 
-	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa)
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa),
+	CHECK (hora >= 0 AND hora <= 23)
 );
 
 CREATE TABLE PartidoPolitico(
@@ -120,7 +123,8 @@ CREATE TABLE Voto(
 	idMesa INTEGER,
 	tipo INTEGER,
 	FOREIGN KEY(idEleccion) REFERENCES VotacionEleccion(idEleccion),
-	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa)
+	FOREIGN KEY(idMesa) REFERENCES Mesa(idMesa),
+	CHECK (tipo = 1 OR tipo = 2)
 );
 
 CREATE TABLE VotoCandidato(
@@ -144,7 +148,8 @@ CREATE TABLE ViveEn(
 	fechaFin INTEGER,
 	PRIMARY KEY(DNI, idTerritorio, fechaInicio),
 	FOREIGN KEY(DNI) REFERENCES Votante(DNI),
-	FOREIGN KEY(idTerritorio) REFERENCES Territorio(idTerritorio)
+	FOREIGN KEY(idTerritorio) REFERENCES Territorio(idTerritorio),
+	CHECK (fechaFin = -1 OR fechaFin > fechaInicio)
 );
 
 CREATE TABLE RigePara(
