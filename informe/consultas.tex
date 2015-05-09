@@ -33,9 +33,11 @@ AND spa.cantVotos = (SELECT MAX(spa2.cantVotos)
                      FROM SePostulaA spa2
                      WHERE spa2.idEleccion = vc.idEleccion);
 
-Esta consulta toma los candidatos que participan de las \'ultimas elecciones a partir de la VotacionCandidato y luego los filtra de acuerdo con la cantidad de votos, para as\'i obtener a los ganadores.
 
 \end{lstlisting} 
+Esta consulta toma los candidatos que participan de las \'ultimas elecciones a partir de la VotacionCandidato y luego los filtra de acuerdo con la cantidad de votos, para as\'i obtener a los ganadores.
+
+~
 
 \noindent Consulta 2: Consultar las 5 personas que m\'as tarde fueron a votar antes de terminar la votaci\'on por cada centro electoral en na elecci\'on.
 
@@ -59,9 +61,11 @@ AND vot.dni IN (SELECT vot1.dni
                 LIMIT 5)
 ORDER BY direccion,hora DESC;
 
+\end{lstlisting} 
+
 Aqu\'i nos basamos en la \'ultima elecci\'on para seleccionar a los votantes que participaronde ella y luego tomamos \'unicamente aquellos que en horario llegaron m\'as tarde. El ORDER BY hora DESC sumado al LIMIT 5 del SELECT anidado nos permite restringir los DNIs de los votantes por horario m\'as tard\'io. Luego, agrupamos las tuplas de salida por centro para clarificar el resultado.
 
-\end{lstlisting} 
+~
 
 \noindent Consulta 3: Consultar quienes fueron los partidos pol\'iticos que obtuvieron m\'as del 20$\%$ en las \'ultimas 5 elecciones provinciales a gobernador.
 
@@ -91,10 +95,11 @@ AND c.nombre LIKE 'Gobernador'
 AND spa.cantVotos > (SELECT SUM(spa2.cantVotos)*0.2
                      FROM SePostulaA spa2
                      WHERE spa2.idEleccion = vc.idEleccion);
-
-En este caso tomamos los partidos pol\'iticos de los candidatos que participan en las \'ultimas cinco elecci\'ones de manera similar a como tomamos los votantes m\'as tard\'ios de la consulta anterior, filtrando las elecciones por cargo a Gobernador. Luego pedimos que dichos candidatos junten una cantidad de votos mayor al 20% de la suma total de votos en la elecci\'on de la cual participan.
-
 \end{lstlisting} 
+
+En este caso tomamos los partidos pol\'iticos de los candidatos que participan en las \'ultimas cinco elecci\'ones de manera similar a como tomamos los votantes m\'as tard\'ios de la consulta anterior, filtrando las elecciones por cargo a Gobernador. Luego pedimos que dichos candidatos junten una cantidad de votos mayor al 20\% de la suma total de votos en la elecci\'on de la cual participan.
+
+~ 
 
 
 \end{section}
