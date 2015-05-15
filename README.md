@@ -11,3 +11,4 @@ luego se realizan las consultas que uno prefiera de la siguiente manera:
 
 sqlite3 test.db < consultas.sql
 
+#
