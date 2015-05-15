@@ -7,5 +7,7 @@ python cargar_base.py
 
 sqlite3 test.db
 
-luego se realizan las consultas que uno prefiera.
+luego se realizan las consultas que uno prefiera de la siguiente manera:
+
+sqlite3 test.db < consultas.sql
 
