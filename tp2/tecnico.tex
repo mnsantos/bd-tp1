@@ -86,6 +86,8 @@ Uno de los métodos que Dynamo usa para permitir el escalado es su algoritmo de 
 
 \begin{subsubsection}{Replicación}
 	Dynamo también permite replicación. El mecanismo por el cual hace replicación consiste en que por cada key se selecciona un ‘nodo coordinador’ (es el nodo correspondiente al hash de la key en el anillo) y este se encarga de replicar los datos en los N-1 nodos siguientes en sentido horario y quedándose él también con una copia.\\
+
+\includegraphics[scale=1]{imgs/dynamo}
 	
 En caso de usar nodos virtuales, el nodo coordinador se asegura de saltear nodos repetidos, para que el mismo nodo no tenga replicados los datos. \\
 
@@ -133,6 +135,8 @@ La API de Riak comparte la interfaz común de las bases de datos Key/Value: get,
 Riak utiliza replicación y particionado. El sistema de replicación está altamente influenciado por el paper de Dynamo y por el CAP Theorem. Al igual que Dynamo, Riak sigue la técnica de consistent hashing que mapea cada key a un rango de particiones que conforman un nodo virtual. Tiene la ventaja de reducir la cantidad de datos que deben ser reequilibrados cuando un nodo se cae. \\
 
 El CAP Theorem asegura que dadas tres propiedades: consistencia, disponibilidad y partición, sólo es posible asegurar dos de estas. Riak decidió realizar un sistema que permitiese jugar con estas limitaciones, siendo posible tunear el nivel de consistencia y disponibilidad de una base de datos según sea necesario. Por ejemplo, es posible definir en cuántos nodos debe ser replicado un objeto y cuántos nodos deben ser escritos o leídos para poder completar exitosamente un pedido. Estos valores son configurables en N/R/W. N es el número de nodos que deben replicarse, R el número de nodos a leer y W el número de nodos que deben ser escritos antes de finalizar una operación. A continuación, un ejemplo:\\
+
+\includegraphics[scale=1]{imgs/riak}
 
 N=3: significa que eventualmente los valores serán replicados en 3 nodos. \\
 
@@ -186,7 +190,7 @@ Esta modularización y abstracción de las tareas permite que la secuencia de pa
 
 En estas bases de datos hay 3 clases de configuraciones posibles y distintas como se muestra en el gráfico a continuación. Estas configuraciones van a depender de las particularidades con la que implementacion de ella cuente.\\
 
-%imagen
+\includegraphics[scale=1]{imgs/voldemort}
 
 Son tres configuraciones diferentes y cada una posee un nivel de decision más. Claramente el de menos niveles es el más rápido y eficiente pero no siempre es posible resolver todas las consultas de forma tal que la lectura se direccione al nodo donde efectivamente se encuentra la información que es requerida o que posea la última actualización disponible, por eso es que existen otras dos configuración que permiten resolver a donde acceder antes de realizar la consulta. Como bien se sabe lo que más cuesta en términos de performance son los accesos a disco y luego la cantidad de procesamiento para la decision de esto, es por eso que encontrar el equilibrio entre ambas lo es importante.\\
 

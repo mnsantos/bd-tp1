@@ -10,9 +10,9 @@
 \contentsline {subsubsection}{\numberline {2.1.3}Versionado de los datos}{7}{subsubsection.2.1.3}
 \contentsline {subsubsection}{\numberline {2.1.4}Usos}{8}{subsubsection.2.1.4}
 \contentsline {subsection}{\numberline {2.2}Riak}{8}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Redis}{10}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Project Voldemort}{11}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Arquitectura del sistema}{12}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}Partici\IeC {\'o}n y replicaci\IeC {\'o}n}{12}{subsubsection.2.4.2}
-\contentsline {subsubsection}{\numberline {2.4.3}Modelos y serializaci\IeC {\'o}n de los datos}{13}{subsubsection.2.4.3}
-\contentsline {subsubsection}{\numberline {2.4.4}consistencia y versionado}{13}{subsubsection.2.4.4}
+\contentsline {subsection}{\numberline {2.3}Redis}{11}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Project Voldemort}{12}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Arquitectura del sistema}{13}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Partici\IeC {\'o}n y replicaci\IeC {\'o}n}{14}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Modelos y serializaci\IeC {\'o}n de los datos}{15}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}consistencia y versionado}{15}{subsubsection.2.4.4}
